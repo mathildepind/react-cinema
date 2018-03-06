@@ -3,25 +3,45 @@ import React from 'react';
 class Button extends React.Component {
   constructor(props){
     super(props);
+    this.state = {
+      movieSearch : '',
+    }
 
-    this.state = {counter: 0};
-
+    this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick(event){
-    this.setState(function(prevState){
-      return {
-        counter: prevState.counter + 1
-      };
-    })
+  handleChange(event){
+    let searchInput = event.target.value;
+    this.setState({
+      movieSearch: searchInput
+    });
+    console.log(this.state.movieSearch);
   }
+
+
+  handleClick(event){
+    event.preventDefault();
+    let searchInput = this.state.movieSearch;
+    this.props.receiver(searchInput);
+    console.log(searchInput);
+  }
+
 
   render(){
     return (
       <div>
-        <span>button has been clicked {this.state.counter} times</span>
-        <button onClick={this.handleClick}>Click me</button>
+        <form>
+          <label>
+            <input
+              type="text"
+              value={this.state.movieSearch}
+              onChange={this.handleChange}
+            />
+          </label>
+        </form>
+
+        <button onClick={this.handleClick}>Search</button>
       </div>
     );
   }
