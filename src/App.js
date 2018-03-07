@@ -2,12 +2,13 @@ import React from 'react';
 import Button from './Button';
 import Result from './Result';
 
-
-
 class App extends React.Component {
   constructor(props){
     super(props);
-    this.state = {};
+    this.state = {
+      titles : [],
+      movies : []
+    };
 
     this.handleClickReceiver = this.handleClickReceiver.bind(this);
   }
@@ -20,7 +21,12 @@ class App extends React.Component {
     }).then((myJsonData)=>{
      let movieObject = myJsonData.Search;
      this.setState({movies : movieObject});
-     console.log(this.state.movies);
+     // if (this.state.movies) {
+     //   let movieTitles = this.state.movies.map(movie => movie.Title);
+     //   this.setState({titles : movieTitles});
+     // }
+
+     //console.log(this.state.movies);
     }).catch((error) =>{
      console.log(error);
     });
@@ -28,26 +34,24 @@ class App extends React.Component {
 
 
   render(){
-    let movies = this.state.movies;
+    const {movies} = this.state;
 
     return (
       <div>
         <Button
           receiver = {this.handleClickReceiver}
         />
-        <Result
-          title={this.state.Title}
-          year={this.state.Year}
-          poster={this.state.Poster}
-          <ul>
-            {movies.map(function(movie, index){
-              return <li key={ index }>{movie}</li>;
-            })}
-          </ul>
-        />
-
-
+        <div>
+        {movies.map(function(movie){
+          return <Result
+            title={movie.Title}
+            year={movie.Year}
+            poster={movie.Poster}
+          />
+        })}
       </div>
+      </div>
+
     )
   }
 }
