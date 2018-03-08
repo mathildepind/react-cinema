@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App matches the snapshot 1`] = `
+<div>
+  <div>
+    <form
+      onSubmit={[Function]}
+    >
+      <label>
+        <input
+          onChange={[Function]}
+          type="text"
+          value=""
+        />
+      </label>
+      <button
+        type="submit"
+      >
+        Search
+      </button>
+    </form>
+  </div>
+  <div />
+  <div>
+    <div>
+      <h2 />
+      <h3 />
+      <h3 />
+      <h4 />
+      <img
+        alt={undefined}
+        src={undefined}
+      />
+    </div>
+  </div>
+</div>
+`;

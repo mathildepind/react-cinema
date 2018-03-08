@@ -1,6 +1,6 @@
 import React from 'react';
 
-class Button extends React.Component {
+class SearchForm extends React.Component {
   constructor(props){
     super(props);
     this.state = {
@@ -31,7 +31,7 @@ class Button extends React.Component {
   render(){
     return (
       <div>
-        <form>
+        <form onSubmit={this.handleClick}>
           <label>
             <input
               type="text"
@@ -39,12 +39,13 @@ class Button extends React.Component {
               onChange={this.handleChange}
             />
           </label>
+            <button type='submit'>Search</button>
         </form>
 
-        <button onClick={this.handleClick}>Search</button>
+        {/* <button onClick={this.handleClick}>Search</button> */}
       </div>
     );
   }
 };
 
-export default Button;
+export default SearchForm;

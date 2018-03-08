@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchForm component correctly renders tree 1`] = `
+<div>
+  <form
+    onSubmit={[Function]}
+  >
+    <label>
+      <input
+        onChange={[Function]}
+        type="text"
+        value=""
+      />
+    </label>
+    <button
+      type="submit"
+    >
+      Search
+    </button>
+  </form>
+</div>
+`;

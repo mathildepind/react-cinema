@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Result matches the snapshot 1`] = `
+<div
+  onClick={[Function]}
+>
+  <h2>
+    Batman Begins
+  </h2>
+  <h3>
+    2005
+  </h3>
+  <img
+    alt="Batman Begins"
+    src="xyz"
+  />
+</div>
+`;

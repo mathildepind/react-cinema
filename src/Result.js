@@ -1,17 +1,35 @@
 import React from 'react';
+import MovieDetails from './MovieDetails';
 
 class Result extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      movieTitle : ''
+    }
+  this.handleMovieClick = this.handleMovieClick.bind(this);
+  }
+
+
+  handleMovieClick(event){
+    let title = this.props.movie.Title;
+    this.setState = {movieTitle : title};
+    this.props.receiver(title);
+    console.log(title);
+  }
+
 
   render() {
-    const {title, year, poster} = this.props;
+    const {movie} = this.props;
     return (
-      <div>
-        <h2>{title}</h2>
-        <h3>{year}</h3>
+      <div onClick={this.handleMovieClick}>
+        <h2>{movie.Title}</h2>
+        <h3>{movie.Year}</h3>
         <img
-          src={poster}
-          alt={title}
+          src={movie.Poster}
+          alt={movie.Title}
         />
+
       </div>
     )
   }

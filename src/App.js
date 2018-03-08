@@ -1,56 +1,82 @@
 import React from 'react';
-import Button from './Button';
+import SearchForm from './SearchForm';
 import Result from './Result';
+import MovieDetails from './MovieDetails';
 
 class App extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      titles : [],
-      movies : []
+      movies : [],
+      movieData : {},
+      movie : null
     };
 
     this.handleClickReceiver = this.handleClickReceiver.bind(this);
+    this.handleMovieClickReceiver = this.handleMovieClickReceiver.bind(this);
+    this.fetchMovie = this.fetchMovie.bind(this);
   }
 
   handleClickReceiver(input){
-
     fetch(`http://www.omdbapi.com/?s=${input}&apikey=25a585bd`)
     .then((response)=>{
      return response.json()
     }).then((myJsonData)=>{
-     let movieObject = myJsonData.Search;
-     this.setState({movies : movieObject});
-     // if (this.state.movies) {
-     //   let movieTitles = this.state.movies.map(movie => movie.Title);
-     //   this.setState({titles : movieTitles});
-     // }
+     let movieArray = myJsonData.Search;
+     this.setState({movies : movieArray});
 
-     //console.log(this.state.movies);
     }).catch((error) =>{
      console.log(error);
     });
   }
 
+  handleMovieClickReceiver(input){
+    let encodedInput = encodeURIComponent(input);
+    fetch(`http://www.omdbapi.com/?t=${encodedInput}&apikey=25a585bd`)
+    .then((response)=>{
+     return response.json()
+    }).then((myJsonData)=>{
+     let movieObject = myJsonData;
+     this.setState({movieData : movieObject});
+     console.log(movieObject);
+
+    }).catch((error) =>{
+     console.log(error);
+    });
+  }
+
+  fetchMovie(){
+    fetch('http://www.omdbapi.com/?t=batman&apikey=25a585bd')
+    .then(response => response.json())
+    .then(movie => this.setState({ movie }));
+  }
 
   render(){
-    const {movies} = this.state;
+    const movie = this.state.movie ? <h1>{this.state.movie.Title}</h1> : null;
+
+    const {movies, movieData} = this.state;
+
+    const movieInfo = this.state.movieData ? <MovieDetails movie={movieData} /> : null;
+    const movieList = movies.map(movie => {
+      return <Result movie={movie} key={movie.imdbID} receiver={this.handleMovieClickReceiver} />;
+    });
+
 
     return (
       <div>
-        <Button
+        <SearchForm
           receiver = {this.handleClickReceiver}
         />
         <div>
-        {movies.map(function(movie){
-          return <Result
-            title={movie.Title}
-            year={movie.Year}
-            poster={movie.Poster}
-          />
-        })}
+          {movieList}
+
       </div>
+
+        <div>
+          {movieInfo}
+        </div>
       </div>
+
 
     )
   }
